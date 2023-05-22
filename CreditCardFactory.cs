@@ -8,7 +8,7 @@ namespace creditcard_factroy
 {
     internal class CreditCardFactory
     {
-        private static readonly Dictionary<string, Func<ICreditCard?>> cardTypeMappings = new ()
+        private readonly Dictionary<string, Func<ICreditCard?>> cardTypeMappings = new ()
         {
             ["Normal"] = () => new Normal(),
             ["Platinum"] = () => new Platinum(),
