@@ -18,8 +18,10 @@ namespace creditcard_factroy
         public CreditCardForm(string cardType)
         {
             InitializeComponent();
+            //creditCard = CreditCardFactory.GetCreditCard(cardType);
 
-            creditCard = CreditCardFactory.GetCreditCard(cardType);
+            CreditCardFactory factory = new ();
+            creditCard = factory[cardType];
             ValidCreditCard = creditCard != null;
         }
 

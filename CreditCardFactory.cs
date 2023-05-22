@@ -8,15 +8,35 @@ namespace creditcard_factroy
 {
     internal class CreditCardFactory
     {
-        public static ICreditCard? GetCreditCard(string cardType)
+        private static readonly Dictionary<string, Func<ICreditCard?>> cardTypeMappings = new ()
         {
-            return cardType switch
+            ["Normal"] = () => new Normal(),
+            ["Platinum"] = () => new Platinum(),
+            ["Titanium"] = () => new Titanium()
+        };
+
+        public ICreditCard? this[string cardType]
+        {
+            get
             {
-                "Normal" => new Normal(),
-                "Platinum" => new Platinum(),
-                "Titanium" => new Titanium(),
-                _ => null
-            };
+                if (cardTypeMappings.TryGetValue(cardType, out Func<ICreditCard?>? cardTypeValue))
+                {
+                    return cardTypeValue?.Invoke();
+                }
+
+                return null;
+            }
         }
+
+        //public static ICreditCard? GetCreditCard(string cardType)
+        //{
+        //    return cardType switch
+        //    {
+        //        "Normal" => new Normal(),
+        //        "Platinum" => new Platinum(),
+        //        "Titanium" => new Titanium(),
+        //        _ => null
+        //    };
+        //}
     }
 }
